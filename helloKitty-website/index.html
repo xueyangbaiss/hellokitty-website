@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>竖屏HelloKitty（白色逐字文字版）</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(#fdf6f9, #f8e8ef); /* 保留粉白渐变背景 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif; /* 适配中文显示 */
+        }
+
+        /* 文字容器：居中对齐 */
+        .happy-text-container {
+            font-size: clamp(1.5rem, 5vw, 2.5rem); /* 自适应字号，手机/电脑通用 */
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px; /* 文字与视频间距 */
+            /* 增强文字阴影，让白色字体在浅背景上更醒目 */
+            text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        /* 单个文字样式：逐字动画核心 + 白色字体 */
+        .happy-char {
+            display: inline-block; /* 让每个文字独立存在，支持单独动画 */
+            color: #ffffff; /* 改为纯白色字体 */
+            opacity: 0; /* 初始透明（看不见） */
+            transform: translateY(10px); /* 初始轻微向下偏移，增加灵动性 */
+            animation: fadeUp 0.5s ease forwards; /* 动画执行后保持最终状态 */
+        }
+
+        /* 定义逐字淡入上移动画 */
+        @keyframes fadeUp {
+            to {
+                opacity: 1; /* 最终不透明（显示文字） */
+                transform: translateY(0); /* 最终回到原位置 */
+            }
+        }
+
+        /* 竖屏视频样式（保持原有适配逻辑） */
+        .kitty-video {
+            max-width: 90%;
+            max-height: 90vh;
+            height: auto;
+            width: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            object-fit: contain;
+            /* 可选：视频轻微淡入，和文字呼应 */
+            opacity: 0;
+            animation: fadeUp 1.5s ease forwards;
+            animation-delay: 2s; /* 等文字全部显示后，视频再淡入 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 文字容器：每个字用span包裹，设置不同延迟实现逐字显示 -->
+    <div class="happy-text-container">
+        <span class="happy-char" style="animation-delay: 0.3s;">郭</span>
+        <span class="happy-char" style="animation-delay: 0.6s;">梦</span>
+        <span class="happy-char" style="animation-delay: 0.9s;">雨</span>
+        <span class="happy-char" style="animation-delay: 1.2s;">天</span>
+        <span class="happy-char" style="animation-delay: 1.5s;">天</span>
+        <span class="happy-char" style="animation-delay: 1.8s;">开</span>
+        <span class="happy-char" style="animation-delay: 2.1s;">心</span>
+    </div>
+
+    <!-- 竖屏视频 -->
+    <video class="kitty-video" autoplay loop muted playsinline>
+        <source src="hellokitty.mp4" type="video/mp4">
+        <source src="hellokitty.webm" type="video/webm">
+        你的浏览器不支持视频播放，请更换现代浏览器尝试。
+    </video>
+</body>
+</html>
